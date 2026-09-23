@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SQL Server Performance Health Check</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            margin-top: 35px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        pre {
+            background: #f0f2f5;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #cfd5dc;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #eef1f5;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fb;
+        }
+
+        tr:hover {
+            background: #eef3f8;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-card {
+            border: 1px solid #d9dee5;
+            border-radius: 6px;
+            padding: 15px;
+            background: #fafbfc;
+        }
+
+        .summary-card span {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .summary-card strong {
+            font-size: 20px;
+        }
+
+        .empty {
+            color: #777;
+            font-style: italic;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>SQL Server Performance Health Check</h1>
+
+    <p>
+        Performance assessment report generated from collected
+        SQL Server evidence.
+    </p>
+
+
+    <div class="section">
+
+        <h2>Executive Summary</h2>
+
+        <div id="executive-summary">
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <span>Database</span>
+            <strong>JoinOptimizationLab</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Sections Analyzed</span>
+            <strong>6</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Findings</span>
+            <strong>0</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Status</span>
+            <strong>No Actionable Findings</strong>
+        </div>
+
+    </div>
+    </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Environment</h2>
+
+        <div id="environment">
+    <table>
+        <tbody>
+            
+            <tr>
+                <th>Server</th>
+                <td>CEO</td>
+            </tr>
+            
+            <tr>
+                <th>Database</th>
+                <td>JoinOptimizationLab</td>
+            </tr>
+            
+            <tr>
+                <th>SQL Server</th>
+                <td>Microsoft SQL Server 2022</td>
+            </tr>
+            
+            <tr>
+                <th>Version</th>
+                <td>16.0.1190.2</td>
+            </tr>
+            
+            <tr>
+                <th>Edition</th>
+                <td>Enterprise Evaluation Edition (64-bit)</td>
+            </tr>
+            
+            <tr>
+                <th>Operating System</th>
+                <td>Windows 10 Pro</td>
+            </tr>
+            
+            <tr>
+                <th>Assessment Time</th>
+                <td>2026-09-19T16:45:58.857000</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Query Performance</h2>
+
+        <div id="query-performance">
+    <table>
+        <thead>
+            <tr>
+                <th>Executions</th>
+                <th>Total CPU</th>
+                <th>Total Elapsed</th>
+                <th>Logical Reads</th>
+                <th>Logical Writes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            
+            <tr>
+                <td>4</td>
+                <td>7,334 ms</td>
+                <td>8,718 ms</td>
+                <td>294</td>
+                <td>0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <h3>Query Text</h3>
+
+    <pre>
+create procedure sys.sp_datatype_info_100
+(
+    @data_type int = 0,
+    @ODBCVer tinyint = 2
+)
+as
+    declare @mintype int
+    declare @maxtype int
+
+    set @ODBCVer = isnull(@ODBCVer, 2)
+    if @ODBCVer &lt; 3 -- includes ODBC 1.0 as well
+        set @ODBCVer = 2
+    else
+        set @ODBCVer = 3
+
+    if @data_type = 0
+    begin
+        select @mintype = -32768
+        select @maxtype = 32767
+    end
+    else
+    begin
+        select @mintype = @data_type
+        select @maxtype = @data_type
+    end
+
+    select
+        TYPE_NAME           = v.TYPE_NAME,
+        DATA_TYPE           = v.DATA_TYPE,
+        PRECISION           = v.PRECISION,
+        LITERAL_PREFIX      = v.LITERAL_PREFIX,
+        LITERAL_SUFFIX      = v.LITERAL_SUFFIX,
+        CREATE_PARAMS       = v.CREATE_PARAMS,
+        NULLABLE            = v.NULLABLE,
+        CASE_SENSITIVE      = v.CASE_SENSITIVE,
+        SEARCHABLE          = v.SEARCHABLE,
+        UNSIGNED_ATTRIBUTE  = v.UNSIGNED_ATTRIBUTE,
+        MONEY               = v.MONEY,
+        AUTO_INCREMENT      = v.AUTO_INCREMENT,
+        LOCAL_TYPE_NAME     = v.LOCAL_TYPE_NAME,
+        MINIMUM_SCALE       = v.MINIMUM_SCALE,
+        MAXIMUM_SCALE       = v.MAXIMUM_SCALE,
+        SQL_DATA_TYPE       = v.SQL_DATA_TYPE,
+        SQL_DATETIME_SUB    = v.SQL_DATETIME_SUB,
+        NUM_PREC_RADIX      = v.NUM_PREC_RADIX,
+        INTERVAL_PRECISION  = v.INTERVAL_PRECISION,
+        USERTYPE            = v.USERTYPE
+
+    from
+        sys.spt_datatype_info_view v
+
+    where
+        v.DATA_TYPE between @mintype and @maxtype and
+        v.ODBCVer = @ODBCVer
+
+    order by 2, 12, 11, 20
+</pre>
+    </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Wait Statistics</h2>
+
+        <div id="wait-statistics">
+    <table>
+        <thead>
+            <tr>
+                <th>Wait Type</th>
+                <th>Waiting Tasks</th>
+                <th>Wait Time</th>
+                <th>Signal Wait</th>
+                <th>Wait %</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            
+            <tr>
+                <td>SQLTRACE_INCREMENTAL_FLUSH_SLEEP</td>
+                <td>4,336</td>
+                <td>91,279,013 ms</td>
+                <td>56 ms</td>
+                <td>19.85%</td>
+            </tr>
+            
+            <tr>
+                <td>HADR_FILESTREAM_IOMGR_IOCOMPLETION</td>
+                <td>33,892</td>
+                <td>91,274,572 ms</td>
+                <td>17,080 ms</td>
+                <td>19.85%</td>
+            </tr>
+            
+            <tr>
+                <td>QDS_PERSIST_TASK_MAIN_LOOP_SLEEP</td>
+                <td>291</td>
+                <td>91,238,728 ms</td>
+                <td>460 ms</td>
+                <td>19.85%</td>
+            </tr>
+            
+            <tr>
+                <td>SP_SERVER_DIAGNOSTICS_SLEEP</td>
+                <td>83</td>
+                <td>90,980,939 ms</td>
+                <td>90,980,939 ms</td>
+                <td>19.79%</td>
+            </tr>
+            
+            <tr>
+                <td>PWAIT_EXTENSIBILITY_CLEANUP_TASK</td>
+                <td>58</td>
+                <td>90,980,758 ms</td>
+                <td>90,980,758 ms</td>
+                <td>19.79%</td>
+            </tr>
+            
+            <tr>
+                <td>QDS_ASYNC_QUEUE</td>
+                <td>4</td>
+                <td>3,647,759 ms</td>
+                <td>22 ms</td>
+                <td>0.79%</td>
+            </tr>
+            
+            <tr>
+                <td>PREEMPTIVE_OS_QUERYREGISTRY</td>
+                <td>45,656</td>
+                <td>104,111 ms</td>
+                <td>0 ms</td>
+                <td>0.02%</td>
+            </tr>
+            
+            <tr>
+                <td>THREADPOOL</td>
+                <td>5,525</td>
+                <td>68,728 ms</td>
+                <td>2 ms</td>
+                <td>0.01%</td>
+            </tr>
+            
+            <tr>
+                <td>SOS_SCHEDULER_YIELD</td>
+                <td>25,413</td>
+                <td>48,278 ms</td>
+                <td>47,898 ms</td>
+                <td>0.01%</td>
+            </tr>
+            
+            <tr>
+                <td>PAGEIOLATCH_SH</td>
+                <td>7,254</td>
+                <td>41,275 ms</td>
+                <td>9,423 ms</td>
+                <td>0.01%</td>
+            </tr>
+            
+            <tr>
+                <td>PREEMPTIVE_OS_FILEOPS</td>
+                <td>311</td>
+                <td>14,388 ms</td>
+                <td>0 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>RESOURCE_SEMAPHORE</td>
+                <td>1</td>
+                <td>10,797 ms</td>
+                <td>22 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>PREEMPTIVE_XE_GETTARGETSTATE</td>
+                <td>531</td>
+                <td>10,687 ms</td>
+                <td>0 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>MEMORY_ALLOCATION_EXT</td>
+                <td>793,884</td>
+                <td>8,776 ms</td>
+                <td>0 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>PREEMPTIVE_XE_CALLBACKEXECUTE</td>
+                <td>762,021</td>
+                <td>6,465 ms</td>
+                <td>0 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>PWAIT_ALL_COMPONENTS_INITIALIZED</td>
+                <td>3</td>
+                <td>6,283 ms</td>
+                <td>0 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>ASYNC_NETWORK_IO</td>
+                <td>2,829</td>
+                <td>5,626 ms</td>
+                <td>170 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>PREEMPTIVE_OS_CRYPTOPS</td>
+                <td>22</td>
+                <td>5,108 ms</td>
+                <td>0 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>STARTUP_DEPENDENCY_MANAGER</td>
+                <td>37</td>
+                <td>4,237 ms</td>
+                <td>102 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+            <tr>
+                <td>LCK_M_S</td>
+                <td>7</td>
+                <td>3,798 ms</td>
+                <td>6 ms</td>
+                <td>0.00%</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Blocking</h2>
+
+        <div id="blocking">
+        <p class="empty">
+            No blocking activity was detected during this assessment.
+        </p>
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Indexes</h2>
+
+        <div id="indexes">
+    <table>
+        <thead>
+            <tr>
+                <th>Schema</th>
+                <th>Table</th>
+                <th>Index</th>
+                <th>Type</th>
+                <th>Unique</th>
+                <th>Primary Key</th>
+                <th>Disabled</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            
+            <tr>
+                <td>dbo</td>
+                <td>Customers</td>
+                <td>PK_Customers</td>
+                <td>CLUSTERED</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>Enabled</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>Orders</td>
+                <td>PK_Orders</td>
+                <td>CLUSTERED</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>Enabled</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>Orders</td>
+                <td>IX_Orders_CustomerID_Covering</td>
+                <td>NONCLUSTERED</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Enabled</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>StatisticsLab</td>
+                <td>PK__Statisti__3214EC276C2E3450</td>
+                <td>CLUSTERED</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>Enabled</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Statistics</h2>
+
+        <div id="statistics">
+    <table>
+        <thead>
+            <tr>
+                <th>Schema</th>
+                <th>Table</th>
+                <th>Statistics</th>
+                <th>Last Updated</th>
+                <th>Rows</th>
+                <th>Rows Sampled</th>
+                <th>Modification Count</th>
+                <th>Sample %</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            
+            <tr>
+                <td>dbo</td>
+                <td>Customers</td>
+                <td>PK_Customers</td>
+                <td>2026-08-19T23:36:09.433333</td>
+                <td>10</td>
+                <td>10</td>
+                <td>0</td>
+                <td>100.00%</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>Orders</td>
+                <td>_WA_Sys_00000002_37A5467C</td>
+                <td>2026-08-19T23:36:09.440000</td>
+                <td>1,010</td>
+                <td>1,010</td>
+                <td>0</td>
+                <td>100.00%</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>Orders</td>
+                <td>IX_Orders_CustomerID_Covering</td>
+                <td>2026-08-27T03:23:57.070000</td>
+                <td>1,010</td>
+                <td>1,010</td>
+                <td>0</td>
+                <td>100.00%</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>Orders</td>
+                <td>PK_Orders</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>StatisticsLab</td>
+                <td>_WA_Sys_00000002_47DBAE45</td>
+                <td>2026-09-05T23:41:53.326666</td>
+                <td>13,698</td>
+                <td>13,698</td>
+                <td>0</td>
+                <td>100.00%</td>
+            </tr>
+            
+            <tr>
+                <td>dbo</td>
+                <td>StatisticsLab</td>
+                <td>PK__Statisti__3214EC276C2E3450</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Findings</h2>
+
+        <div id="findings">
+        <p class="empty">
+            No actionable findings were identified during this assessment.
+        </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

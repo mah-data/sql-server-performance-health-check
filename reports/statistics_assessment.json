@@ -1,0 +1,62 @@
+[
+    {
+        "schema_name": "dbo",
+        "table_name": "Customers",
+        "statistics_name": "PK_Customers",
+        "last_updated": "2026-08-19T23:36:09.433333",
+        "rows": 10,
+        "rows_sampled": 10,
+        "modification_counter": 0,
+        "sample_percentage": 100.0
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "Orders",
+        "statistics_name": "_WA_Sys_00000002_37A5467C",
+        "last_updated": "2026-08-19T23:36:09.440000",
+        "rows": 1010,
+        "rows_sampled": 1010,
+        "modification_counter": 0,
+        "sample_percentage": 100.0
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "Orders",
+        "statistics_name": "IX_Orders_CustomerID_Covering",
+        "last_updated": "2026-08-27T03:23:57.070000",
+        "rows": 1010,
+        "rows_sampled": 1010,
+        "modification_counter": 0,
+        "sample_percentage": 100.0
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "Orders",
+        "statistics_name": "PK_Orders",
+        "last_updated": null,
+        "rows": null,
+        "rows_sampled": null,
+        "modification_counter": null,
+        "sample_percentage": null
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "StatisticsLab",
+        "statistics_name": "_WA_Sys_00000002_47DBAE45",
+        "last_updated": "2026-09-05T23:41:53.326666",
+        "rows": 13698,
+        "rows_sampled": 13698,
+        "modification_counter": 0,
+        "sample_percentage": 100.0
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "StatisticsLab",
+        "statistics_name": "PK__Statisti__3214EC276C2E3450",
+        "last_updated": null,
+        "rows": null,
+        "rows_sampled": null,
+        "modification_counter": null,
+        "sample_percentage": null
+    }
+]

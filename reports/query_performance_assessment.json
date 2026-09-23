@@ -1,0 +1,13 @@
+[
+    {
+        "execution_count": 4,
+        "total_cpu_time": 7334,
+        "total_elapsed_time": 8718,
+        "total_logical_reads": 294,
+        "total_logical_writes": 0,
+        "avg_cpu_time": 1833.5,
+        "avg_elapsed_time": 2179.5,
+        "avg_logical_reads": 73.5,
+        "query_text": "\r\ncreate procedure sys.sp_datatype_info_100\r\n(\r\n    @data_type int = 0,\r\n    @ODBCVer tinyint = 2\r\n)\r\nas\r\n    declare @mintype int\r\n    declare @maxtype int\r\n\r\n    set @ODBCVer = isnull(@ODBCVer, 2)\r\n    if @ODBCVer < 3 -- includes ODBC 1.0 as well\r\n        set @ODBCVer = 2\r\n    else\r\n        set @ODBCVer = 3\r\n\r\n    if @data_type = 0\r\n    begin\r\n        select @mintype = -32768\r\n        select @maxtype = 32767\r\n    end\r\n    else\r\n    begin\r\n        select @mintype = @data_type\r\n        select @maxtype = @data_type\r\n    end\r\n\r\n    select\r\n        TYPE_NAME           = v.TYPE_NAME,\r\n        DATA_TYPE           = v.DATA_TYPE,\r\n        PRECISION           = v.PRECISION,\r\n        LITERAL_PREFIX      = v.LITERAL_PREFIX,\r\n        LITERAL_SUFFIX      = v.LITERAL_SUFFIX,\r\n        CREATE_PARAMS       = v.CREATE_PARAMS,\r\n        NULLABLE            = v.NULLABLE,\r\n        CASE_SENSITIVE      = v.CASE_SENSITIVE,\r\n        SEARCHABLE          = v.SEARCHABLE,\r\n        UNSIGNED_ATTRIBUTE  = v.UNSIGNED_ATTRIBUTE,\r\n        MONEY               = v.MONEY,\r\n        AUTO_INCREMENT      = v.AUTO_INCREMENT,\r\n        LOCAL_TYPE_NAME     = v.LOCAL_TYPE_NAME,\r\n        MINIMUM_SCALE       = v.MINIMUM_SCALE,\r\n        MAXIMUM_SCALE       = v.MAXIMUM_SCALE,\r\n        SQL_DATA_TYPE       = v.SQL_DATA_TYPE,\r\n        SQL_DATETIME_SUB    = v.SQL_DATETIME_SUB,\r\n        NUM_PREC_RADIX      = v.NUM_PREC_RADIX,\r\n        INTERVAL_PRECISION  = v.INTERVAL_PRECISION,\r\n        USERTYPE            = v.USERTYPE\r\n\r\n    from\r\n        sys.spt_datatype_info_view v\r\n\r\n    where\r\n        v.DATA_TYPE between @mintype and @maxtype and\r\n        v.ODBCVer = @ODBCVer\r\n\r\n    order by 2, 12, 11, 20\r\n"
+    }
+]

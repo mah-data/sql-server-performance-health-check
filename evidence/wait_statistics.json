@@ -1,0 +1,122 @@
+[
+    {
+        "wait_type": "SQLTRACE_INCREMENTAL_FLUSH_SLEEP",
+        "waiting_tasks_count": 4336,
+        "wait_time_ms": 91279013,
+        "signal_wait_time_ms": 56
+    },
+    {
+        "wait_type": "HADR_FILESTREAM_IOMGR_IOCOMPLETION",
+        "waiting_tasks_count": 33892,
+        "wait_time_ms": 91274572,
+        "signal_wait_time_ms": 17080
+    },
+    {
+        "wait_type": "QDS_PERSIST_TASK_MAIN_LOOP_SLEEP",
+        "waiting_tasks_count": 291,
+        "wait_time_ms": 91238728,
+        "signal_wait_time_ms": 460
+    },
+    {
+        "wait_type": "SP_SERVER_DIAGNOSTICS_SLEEP",
+        "waiting_tasks_count": 83,
+        "wait_time_ms": 90980939,
+        "signal_wait_time_ms": 90980939
+    },
+    {
+        "wait_type": "PWAIT_EXTENSIBILITY_CLEANUP_TASK",
+        "waiting_tasks_count": 58,
+        "wait_time_ms": 90980758,
+        "signal_wait_time_ms": 90980758
+    },
+    {
+        "wait_type": "QDS_ASYNC_QUEUE",
+        "waiting_tasks_count": 4,
+        "wait_time_ms": 3647759,
+        "signal_wait_time_ms": 22
+    },
+    {
+        "wait_type": "PREEMPTIVE_OS_QUERYREGISTRY",
+        "waiting_tasks_count": 45656,
+        "wait_time_ms": 104111,
+        "signal_wait_time_ms": 0
+    },
+    {
+        "wait_type": "THREADPOOL",
+        "waiting_tasks_count": 5525,
+        "wait_time_ms": 68728,
+        "signal_wait_time_ms": 2
+    },
+    {
+        "wait_type": "SOS_SCHEDULER_YIELD",
+        "waiting_tasks_count": 25413,
+        "wait_time_ms": 48278,
+        "signal_wait_time_ms": 47898
+    },
+    {
+        "wait_type": "PAGEIOLATCH_SH",
+        "waiting_tasks_count": 7254,
+        "wait_time_ms": 41275,
+        "signal_wait_time_ms": 9423
+    },
+    {
+        "wait_type": "PREEMPTIVE_OS_FILEOPS",
+        "waiting_tasks_count": 311,
+        "wait_time_ms": 14388,
+        "signal_wait_time_ms": 0
+    },
+    {
+        "wait_type": "RESOURCE_SEMAPHORE",
+        "waiting_tasks_count": 1,
+        "wait_time_ms": 10797,
+        "signal_wait_time_ms": 22
+    },
+    {
+        "wait_type": "PREEMPTIVE_XE_GETTARGETSTATE",
+        "waiting_tasks_count": 531,
+        "wait_time_ms": 10687,
+        "signal_wait_time_ms": 0
+    },
+    {
+        "wait_type": "MEMORY_ALLOCATION_EXT",
+        "waiting_tasks_count": 793884,
+        "wait_time_ms": 8776,
+        "signal_wait_time_ms": 0
+    },
+    {
+        "wait_type": "PREEMPTIVE_XE_CALLBACKEXECUTE",
+        "waiting_tasks_count": 762021,
+        "wait_time_ms": 6465,
+        "signal_wait_time_ms": 0
+    },
+    {
+        "wait_type": "PWAIT_ALL_COMPONENTS_INITIALIZED",
+        "waiting_tasks_count": 3,
+        "wait_time_ms": 6283,
+        "signal_wait_time_ms": 0
+    },
+    {
+        "wait_type": "ASYNC_NETWORK_IO",
+        "waiting_tasks_count": 2829,
+        "wait_time_ms": 5626,
+        "signal_wait_time_ms": 170
+    },
+    {
+        "wait_type": "PREEMPTIVE_OS_CRYPTOPS",
+        "waiting_tasks_count": 22,
+        "wait_time_ms": 5108,
+        "signal_wait_time_ms": 0
+    },
+    {
+        "wait_type": "STARTUP_DEPENDENCY_MANAGER",
+        "waiting_tasks_count": 37,
+        "wait_time_ms": 4237,
+        "signal_wait_time_ms": 102
+    },
+    {
+        "wait_type": "LCK_M_S",
+        "waiting_tasks_count": 7,
+        "wait_time_ms": 3798,
+        "signal_wait_time_ms": 6
+    }
+]

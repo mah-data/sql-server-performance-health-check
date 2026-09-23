@@ -1,0 +1,38 @@
+[
+    {
+        "schema_name": "dbo",
+        "table_name": "Customers",
+        "index_name": "PK_Customers",
+        "index_type": "CLUSTERED",
+        "is_unique": true,
+        "is_primary_key": true,
+        "is_disabled": false
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "Orders",
+        "index_name": "PK_Orders",
+        "index_type": "CLUSTERED",
+        "is_unique": true,
+        "is_primary_key": true,
+        "is_disabled": false
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "Orders",
+        "index_name": "IX_Orders_CustomerID_Covering",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "is_primary_key": false,
+        "is_disabled": false
+    },
+    {
+        "schema_name": "dbo",
+        "table_name": "StatisticsLab",
+        "index_name": "PK__Statisti__3214EC276C2E3450",
+        "index_type": "CLUSTERED",
+        "is_unique": true,
+        "is_primary_key": true,
+        "is_disabled": false
+    }
+]
