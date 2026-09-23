@@ -59,3 +59,11 @@ The goal is to provide a repeatable and evidence-based SQL Server Performance He
 ## Status
 
 Active development.
+
+## Sample Report
+
+A generated HTML performance health check report is included in:
+
+`reports/performance_health_check.html`
+
+The report contains the assessment results, evidence, and actionable findings.
